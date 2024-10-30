@@ -8,10 +8,19 @@ const inter = localFont({
   variable: "--font-inter",
   weight: "100 200 300 400 500 700 900",
 });
+const spaceGrotesk = localFont({
+  src: "./fonts/SpaceGrotesk-VariableFont_wght.ttf",
+  variable: "--font-space-grotesk",
+  weight: "300 400 500 700",
+});
 
 export const metadata: Metadata = {
   title: "DevFlow",
-  description: "A Better version of Stack Overflow.",
+  description:
+    "A communtiy-diven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from aroun the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
+  icons: {
+    icon: "/images/site-logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +30,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body
+        className={`${inter.className} ${spaceGrotesk.variable} antialiased`} // inter is classname because all font it will be inter font and spacegortesk it just a little
+      >
+        {children}
+      </body>
     </html>
   );
 }
