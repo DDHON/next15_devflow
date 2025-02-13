@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
@@ -10,7 +11,7 @@ const questions = [
     description: "Question 1 description",
     tags: [
       { _id: "1", name: "react" },
-      { _id: "2", name: "javascript" },
+      { _id: "2", name: "react" },
     ],
     author: { _id: "1", name: "Dhoni" },
     upvotes: 10,
@@ -23,7 +24,7 @@ const questions = [
     title: "How To Learn javascript",
     description: "Question 2 description",
     tags: [
-      { _id: "1", name: "react" },
+      { _id: "1", name: "javascript" },
       { _id: "2", name: "javascript" },
     ],
     author: { _id: "1", name: "Dhoni" },
@@ -38,11 +39,17 @@ interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
 }
 const Home = async ({ searchParams }: SearchParams) => {
-  const { query = "" } = await searchParams;
+  const { query = "", filter = "" } = await searchParams;
 
-  const filteredQuestions = questions.filter((question) =>
-    question.title.toLowerCase().includes(query?.toLowerCase())
-  );
+  const filteredQuestions = questions.filter((question) => {
+    const matchesQuery = question.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const matchesFilter = filter
+      ? question.tags[0].name.toLowerCase() === filter.toLowerCase()
+      : true;
+    return matchesQuery && matchesFilter;
+  });
   return (
     <>
       <section className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -59,7 +66,7 @@ const Home = async ({ searchParams }: SearchParams) => {
           otherClasses="flex-1"
         />
       </section>
-      {/* Home Filter */}
+      <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
           <h1 key={question._id}>{question.title}</h1>
