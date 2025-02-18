@@ -8,7 +8,7 @@ import { Badge } from "../ui/badge";
 interface Props {
   _id: string;
   name: string;
-  questions: string;
+  questions?: string;
   showCount?: boolean;
   compact?: boolean;
 }

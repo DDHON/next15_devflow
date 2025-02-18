@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
@@ -10,12 +11,17 @@ const questions = [
     title: "how to learn react",
     description: "Question 1 description",
     tags: [
-      { _id: "1", name: "react" },
+      { _id: "1", name: "css" },
       { _id: "2", name: "react" },
     ],
-    author: { _id: "1", name: "Dhoni" },
+    author: {
+      _id: "1",
+      name: "Dhoni",
+      image:
+        "https://static.vecteezy.com/system/resources/previews/002/002/403/non_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
+    },
     upvotes: 10,
-    answer: 5,
+    answers: 5,
     views: 100,
     createdAt: new Date(),
   },
@@ -27,11 +33,16 @@ const questions = [
       { _id: "1", name: "javascript" },
       { _id: "2", name: "javascript" },
     ],
-    author: { _id: "1", name: "Dhoni" },
+    author: {
+      _id: "1",
+      name: "Edo",
+      image:
+        "https://static.vecteezy.com/system/resources/previews/004/899/680/non_2x/beautiful-blonde-woman-with-makeup-avatar-for-a-beauty-salon-illustration-in-the-cartoon-style-vector.jpg",
+    },
     upvotes: 10,
-    answer: 5,
+    answers: 5,
     views: 100,
-    createdAt: new Date(),
+    createdAt: new Date("2021-09-01"),
   },
 ];
 
@@ -69,7 +80,7 @@ const Home = async ({ searchParams }: SearchParams) => {
       <HomeFilter />
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
-          <h1 key={question._id}>{question.title}</h1>
+          <QuestionCard key={question._id} question={question} />
         ))}
       </div>
     </>
